@@ -1,9 +1,28 @@
 def func(x):
     return (x ** 2) - 5 * x
 
+
+def half_sum(x, y):
+    return (x + y) / 2
+
+
+def get_result(b, h):
+    if h < 0:
+        left_bound = b + h
+        right_bound = b - h
+    else:
+        left_bound = b - h
+        right_bound = b + h
+
+    print(left_bound, func(left_bound), right_bound, func(right_bound))
+    return left_bound, right_bound
+
+
 def svenn_method(func, x0, h):
     a, b = x0, x0 + h
     fa, fb = func(a), func(b)
+
+    print(a, fa, b, fb)
 
     if fa < fb:
         h = -h
@@ -17,23 +36,18 @@ def svenn_method(func, x0, h):
         b, fb = c, fc
         c = b + 2 * h
         fc = func(c)
-        if fc > fb:
-            break
 
-    if h < 0:
-        left_bound = (b + c) / 2
-        right_bound = b - h
-    else:
-        left_bound = b - h
-        right_bound = (b + c) / 2
+        print(b, fb, c, fc)
 
-    return left_bound, right_bound, b, fb
-
+        if fc > fb and func(half_sum(b, c)) > fb:
+            return get_result(b, h)
+        elif fc > fb >= func(half_sum(b, c)):
+            b = half_sum(b, c)
+            print(f"b = {b}, h = {h}")
+            return get_result(b, h)
 
 
 x0 = 3.5
 svenn_output = svenn_method(func, x0, 0.1)
 a, c = svenn_output[0], svenn_output[1]
-print(f"Відрізок, що містить точку мінімуму: [{round(a, 3)}, {round(svenn_output[2], 3)}, {round(c, 3)}]")
-print(f"x_m = {round(svenn_output[2], 3)}")
-print(f"f(x_m) = {round(svenn_output[3], 3)}")
+print(f"Відрізок, що містить точку мінімуму: [{round(a, 3)}, {round(c, 3)}]")
