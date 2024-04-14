@@ -1,38 +1,14 @@
+lb = 2
+rb = 2.8
+
+svenn_x_m_val = 2.4
+svenn_x_m_func = -6.24
+
 epsilon = 0.2
 
 
 def func(x):
     return (x ** 2) - 5 * x
-
-
-def svenn_method(func, x0, h):
-    a, b = x0, x0 + h
-    fa, fb = func(a), func(b)
-
-    if fa < fb:
-        h = -h
-        a, b = x0, x0 + h
-
-    c = b + 2 * h
-    fc = func(c)
-
-    while True:
-        h *= 2
-        b, fb = c, fc
-        c = b + 2 * h
-        fc = func(c)
-        if fc > fb:
-            break
-
-    if h < 0:
-        left_bound = (b + c) / 2
-        right_bound = b - h
-    else:
-        left_bound = b - h
-        right_bound = (b + c) / 2
-
-    return left_bound, right_bound, b, fb
-
 
 def check_error(DSK_min, svenn_min):
     if abs(func(svenn_min) - func(DSK_min)) <= epsilon and abs(svenn_min - DSK_min) <= epsilon:
@@ -42,8 +18,6 @@ def check_error(DSK_min, svenn_min):
     return False
 
 
-result = svenn_method(func, 3.5, 0.1)
-lb, rb = result[0], result[1]
 print(f"Ітерація: 1")
 # print(f"Interval containing the minimum point: [{round(lb, 2)}, {round(result[2], 2)}, {round(rb, 2)}]")
 # print(f"x_m = {round(result[2], 2)}")
@@ -52,7 +26,7 @@ print(f"Ітерація: 1")
 
 
 x_1 = lb
-x_2 = result[2]
+x_2 = svenn_x_m_val
 x_3 = rb
 
 delta_x = x_3 - x_2

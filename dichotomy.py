@@ -1,15 +1,14 @@
-lb = 2.4
-rb = 3.2
+lb = 2
+rb = 2.8
 
-svenn_x_m_val = 2.8
-svenn_x_m_func = -6.16
+svenn_x_m_val = 2.4
+svenn_x_m_func = -6.24
 
 epsilon = 0.2
 
 
 def func(x):
     return (x ** 2) - 5 * x
-
 
 def dichotomy(left_bound, right_bound):
     i = 0
